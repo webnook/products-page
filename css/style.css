@@ -57,6 +57,9 @@ button {
   margin: 30px 0;
   border-radius: 20px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 15px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
@@ -78,18 +81,17 @@ button {
   padding: 5px 10px;
   border-radius: 10px;
 }
-@media screen and (max-width:1000px) {
-    #search{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        flex-wrap: wrap;
-    }
-    #products{
-        justify-content: center;
-    }
-    .products__item{
-        margin: 10px;
-    }
-
+@media screen and (max-width: 1000px) {
+  #search {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  #products {
+    justify-content: center;
+  }
+  .products__item {
+    margin: 10px;
+  }
 }
