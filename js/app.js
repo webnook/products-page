@@ -1,5 +1,6 @@
 const searchInput = document.getElementById("search-input");
 const products = document.querySelectorAll(".products__item");
+const buttons = document.querySelectorAll(".filter")
 
 const searchHandler = (event) => {
   const searchValue = event.target.value.toLowerCase().trim();
@@ -12,6 +13,31 @@ const searchHandler = (event) => {
     }
   });
 };
+const changeClass = (filter) => {
+  buttons.forEach(button => {
+    if (button.dataset.filter === filter) {
+      button.classList.add("selected")
+    } else {
+      button.classList.remove("selected")
+    }
+  })
+}
+const filterHandler = (event) => {
+  const filter = event.target.dataset.filter;
+  changeClass(filter)
+  products.forEach((product) => {
+    const category = product.dataset.category;
+    if (filter === "all") {
+      product.style.display = "block";
+    } else {
+      filter === category
+        ? (product.style.display = "block")
+        : (product.style.display = "none");
+    }
+  });
+};
 
 searchInput.addEventListener("keyup", searchHandler);
- 
+buttons.forEach((button) => {
+  button.addEventListener("click", filterHandler);
+});
