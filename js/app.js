@@ -1,6 +1,9 @@
 const searchInput = document.getElementById("search-input");
 const products = document.querySelectorAll(".products__item");
-const buttons = document.querySelectorAll(".filter")
+const buttons = document.querySelectorAll(".filter");
+const priceButton = document
+  .getElementById("search-price")
+  .querySelector("button");
 
 const searchHandler = (event) => {
   const searchValue = event.target.value.toLowerCase().trim();
@@ -14,17 +17,17 @@ const searchHandler = (event) => {
   });
 };
 const changeClass = (filter) => {
-  buttons.forEach(button => {
+  buttons.forEach((button) => {
     if (button.dataset.filter === filter) {
-      button.classList.add("selected")
+      button.classList.add("selected");
     } else {
-      button.classList.remove("selected")
+      button.classList.remove("selected");
     }
-  })
-}
+  });
+};
 const filterHandler = (event) => {
   const filter = event.target.dataset.filter;
-  changeClass(filter)
+  changeClass(filter);
   products.forEach((product) => {
     const category = product.dataset.category;
     if (filter === "all") {
@@ -36,8 +39,28 @@ const filterHandler = (event) => {
     }
   });
 };
+const searchPriceHandler = (e) => {
+  const searchPrice = +e.target.parentElement.children[0].value;
+  products.forEach((product) => {
+    const productPrice = product.children[2].innerText;
+    const price = +productPrice.split(" ")[1];
+    if (!searchPrice) {
+      product.style.display = "block";
+    } else {
+      searchPrice === price
+        ? (product.style.display = "block")
+        : (product.style.display = "none");
+    }
+  });
+};
 
-searchInput.addEventListener("keyup", searchHandler);
-buttons.forEach((button) => {
-  button.addEventListener("click", filterHandler);
-});
+const start = () => {
+  searchInput.addEventListener("keyup", searchHandler);
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", filterHandler);
+  });
+
+  priceButton.addEventListener("click", searchPriceHandler);
+};
+window.addEventListener("load", start);
